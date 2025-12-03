@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 指挥家 - 交响乐团版</title>
+    <title>AI Conductor - Symphony Orchestra</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
             height: 100vh;
         }
         
-        /* 响应式容器包装器 - 填满整个屏幕 */
+        /* Responsive container wrapper - fills entire screen */
         #stage-wrapper {
             position: fixed;
             top: 0;
@@ -34,7 +34,7 @@
             background: #FFFFFF;
         }
 
-        /* 舞台容器 - 1440x1024 设计稿，自动缩放 */
+        /* Stage container - 1440x1024 design, auto-scale */
         #stage-container {
             position: relative;
             width: 1440px;
@@ -43,14 +43,14 @@
             transform-origin: center center;
         }
 
-        /* 乐器人物层 */
+        /* Musician layer */
         .musician {
             position: absolute;
             opacity: 0.6;
             transition: opacity 0.3s ease;
         }
         
-        /* 摇晃动画 */
+        /* Shake animation */
         @keyframes shake {
             0%, 100% { transform: rotate(0deg); }
             25% { transform: rotate(-3deg); }
@@ -62,7 +62,7 @@
             animation: shake 0.5s ease-in-out infinite;
         }
 
-        /* 小提琴需要保持水平翻转 */
+        /* Violin needs to stay horizontally flipped */
         .musician.flipped {
             transform: scaleX(-1);
         }
@@ -77,7 +77,7 @@
             75% { transform: scaleX(-1) rotate(3deg); }
         }
 
-        /* 钢琴1 */
+        /* Piano 1 */
         #piano1 {
             left: 16px;
             top: 152px;
@@ -85,7 +85,7 @@
             height: 279px;
         }
         
-        /* 钢琴2 */
+        /* Piano 2 */
         #piano2 {
             left: 16px;
             top: 414px;
@@ -93,7 +93,7 @@
             height: 279px;
         }
 
-        /* 锣（代替管乐） */
+        /* Gong (replaces wind) */
         #gong {
             left: 416px;
             top: 268px;
@@ -101,7 +101,7 @@
             height: 292px;
         }
 
-        /* 小提琴1 */
+        /* Violin 1 */
         #violin1 {
             left: 773px;
             top: 268px;
@@ -109,7 +109,7 @@
             height: 292px;
         }
         
-        /* 小提琴2 */
+        /* Violin 2 */
         #violin2 {
             left: 935px;
             top: 316px;
@@ -117,7 +117,7 @@
             height: 292px;
         }
         
-        /* 小提琴3 */
+        /* Violin 3 */
         #violin3 {
             left: 1053px;
             top: 90px;
@@ -125,7 +125,7 @@
             height: 292px;
         }
         
-        /* 小提琴4 */
+        /* Violin 4 */
         #violin4 {
             left: 872px;
             top: 0px;
@@ -133,7 +133,7 @@
             height: 292px;
         }
 
-        /* 鼓1 */
+        /* Drum 1 */
         #drum1 {
             left: 1154px;
             top: 316px;
@@ -141,7 +141,7 @@
             height: 356px;
         }
         
-        /* 鼓2 */
+        /* Drum 2 */
         #drum2 {
             left: 1297px;
             top: 382px;
@@ -149,7 +149,7 @@
             height: 356px;
         }
         
-        /* 视频容器 */
+        /* Video container */
         #video-container {
             position: absolute;
             left: 587px;
@@ -172,7 +172,7 @@
             transition: opacity 1s;
         }
 
-        /* 3D 渲染层覆盖整个视口 */
+        /* 3D render layer covering entire viewport */
         #canvas-container { 
             position: fixed; 
             top: 0; 
@@ -238,21 +238,21 @@
 
     <div id="stage-wrapper">
         <div id="stage-container">
-            <!-- 乐器人物 -->
-            <img src="https://files.catbox.moe/gnzoyh.png" class="musician" id="piano1" data-channel="piano" alt="钢琴1">
-            <img src="https://files.catbox.moe/gnzoyh.png" class="musician" id="piano2" data-channel="piano" alt="钢琴2">
+            <!-- Musicians -->
+            <img src="https://files.catbox.moe/gnzoyh.png" class="musician" id="piano1" data-channel="piano" alt="Piano 1">
+            <img src="https://files.catbox.moe/gnzoyh.png" class="musician" id="piano2" data-channel="piano" alt="Piano 2">
             
-            <img src="https://files.catbox.moe/7czsxd.png" class="musician" id="gong" data-channel="wind" alt="锣">
+            <img src="https://files.catbox.moe/7czsxd.png" class="musician" id="gong" data-channel="wind" alt="Gong">
             
-            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin1" data-channel="strings" alt="小提琴1">
-            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin2" data-channel="strings" alt="小提琴2">
-            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin3" data-channel="strings" alt="小提琴3">
-            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin4" data-channel="strings" alt="小提琴4">
+            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin1" data-channel="strings" alt="Violin 1">
+            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin2" data-channel="strings" alt="Violin 2">
+            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin3" data-channel="strings" alt="Violin 3">
+            <img src="https://files.catbox.moe/90gmz5.png" class="musician flipped" id="violin4" data-channel="strings" alt="Violin 4">
             
-            <img src="https://files.catbox.moe/wwztqt.png" class="musician" id="drum1" data-channel="drum" alt="鼓1">
-            <img src="https://files.catbox.moe/wwztqt.png" class="musician" id="drum2" data-channel="drum" alt="鼓2">
+            <img src="https://files.catbox.moe/wwztqt.png" class="musician" id="drum1" data-channel="drum" alt="Drum 1">
+            <img src="https://files.catbox.moe/wwztqt.png" class="musician" id="drum2" data-channel="drum" alt="Drum 2">
 
-            <!-- 视频容器 -->
+            <!-- Video container -->
             <div id="video-container">
                 <video id="video-element" playsinline></video>
             </div>
@@ -268,7 +268,7 @@
     </div>
 
 <script>
-// ================= 响应式缩放 =================
+// ================= Responsive Scaling =================
 function scaleStage() {
     const container = document.getElementById('stage-container');
     
@@ -278,7 +278,7 @@ function scaleStage() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     
-    // 计算缩放比例，保持宽高比
+    // Calculate scale ratio, maintain aspect ratio
     const scaleX = windowWidth / designWidth;
     const scaleY = windowHeight / designHeight;
     const scale = Math.min(scaleX, scaleY);
@@ -286,13 +286,13 @@ function scaleStage() {
     container.style.transform = `scale(${scale})`;
 }
 
-// 初始化时调用
+// Call on initialization
 scaleStage();
 
-// 窗口大小改变时重新计算
+// Recalculate on window resize
 window.addEventListener('resize', scaleStage);
 
-// ================= 配置区域 =================
+// ================= Configuration =================
 const HISTORY_SIZE = 90;
 const MIN_BPM = 60;
 const MAX_BPM = 180;
@@ -319,7 +319,7 @@ let currentPlaybackRate = 1.0;
 
 const CAM_Z = 8; 
 
-// ================= 乐器人物动画 =================
+// ================= Musician Animations =================
 function updateMusicianAnimations(channelStates) {
     const musicians = document.querySelectorAll('.musician[data-channel]');
     musicians.forEach(musician => {
@@ -332,7 +332,7 @@ function updateMusicianAnimations(channelStates) {
     });
 }
 
-// ================= 视口计算工具 =================
+// ================= Viewport Calculation Tools =================
 function getVisiblePlane(depth, camera) {
     const vFOV = camera.fov * Math.PI / 180; 
     const height = 2 * Math.tan(vFOV / 2) * depth;
@@ -340,7 +340,7 @@ function getVisiblePlane(depth, camera) {
     return { width, height };
 }
 
-// ================= Three.js 骨骼类 =================
+// ================= Three.js Skeleton Class =================
 class Hand3D {
     constructor(scene) {
         this.scene = scene;
@@ -390,7 +390,7 @@ class Hand3D {
     updateColors(landmarks) {
         const wrist = landmarks[0];
         
-        // 先将所有关节和骨骼设为灰色
+        // Set all joints and bones to gray first
         this.joints.forEach(joint => {
             joint.material.color.setHex(0x888888);
         });
@@ -399,7 +399,7 @@ class Hand3D {
             bone.material.opacity = 0.6;
         });
         
-        // 检测每个手指，竖起来的变黑色
+        // Check each finger, extended ones turn black
         FINGER_MAP.forEach(f => {
             const tip = landmarks[f.tips[3]];
             const pip = landmarks[f.tips[1]];
@@ -409,7 +409,7 @@ class Hand3D {
             const isExtended = distTip > distPip + 0.05;
             
             if (isExtended) {
-                // 手指竖起来时变黑色
+                // Finger turns black when extended
                 f.tips.forEach(idx => {
                     this.joints[idx].material.color.setHex(0x000000);
                 });
@@ -452,7 +452,7 @@ function initThree() {
     });
 }
 
-// ================= 音频逻辑 =================
+// ================= Audio Logic =================
 async function initAudio() {
     await Tone.start();
     recorder = new Tone.Recorder();
@@ -500,7 +500,7 @@ async function initAudio() {
     channels.wind.start();
 }
 
-// ================= 交互处理 =================
+// ================= Interaction Handling =================
 function processConducting(results) {
     const hands = results.multiHandLandmarks;
     const handedness = results.multiHandedness;
@@ -593,7 +593,7 @@ function updateChannelSwitches(hands) {
     channels.strings.volume.rampTo(status.ring ? 0 : -Infinity, t);
     channels.wind.volume.rampTo(status.pinky ? 0 : -Infinity, t);
 
-    // 更新乐器人物动画
+    // Update musician animations
     updateMusicianAnimations({
         drum: status.index,
         piano: status.middle,
